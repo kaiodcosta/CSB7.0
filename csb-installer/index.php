@@ -261,13 +261,25 @@ if (isset($_POST) && isset ($_POST['write_config'])) {
 
 
 
-
-
-
-
-
-
 </div>
+
+
+
+<script type="text/javascript" src="<?php echo $BASE_URL;?>csb-themes/default/js/input-validation.js"></script>
+<script type="text/javascript">
+
+// Input validation
+// checkString(inputName, minLength, maxLength, illegalCharArray)
+checkString("BASE_DIR", 0, 100, [" ", "http", ".com", ".net", ".org", ".edu", ".io"]);
+checkString("BASE_URL", 0, 100, [" "]);
+checkString("rescue_email", -1, 100, [" "]);
+checkString("db_servername", 0, 100, [" "]);
+checkString("db_username", 0, 100, [" "]);
+checkString("db_password", 0, 100, [" "]);
+checkString("db_name", 0, 100, [" "]);
+
+</script>
+
 
 <?php
 loadFooter();
