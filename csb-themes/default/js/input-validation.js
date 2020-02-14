@@ -32,7 +32,7 @@ function checkString(inputName, minLength, maxLength, illegalCharArray)
         
 
         // Check String Length when changing the input
-        $(input).on('input', input, function()
+        $(input).on('input focus', input, function()
         {
             if (input.val().length > minLength)
             {
