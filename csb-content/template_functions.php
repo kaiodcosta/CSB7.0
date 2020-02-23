@@ -50,7 +50,7 @@ function loadFooter()
  */
 function loadMeta()
 {
-    global $page_title, $BASE_URL, $THEME_URL;
+    global $page_title, $BASE_URL, $THEME_URL, $SITE_TITLE;
 
     $csb_headers = "";
 
@@ -59,7 +59,7 @@ function loadMeta()
     $csb_headers .=  "<link rel='stylesheet' type='text/css' href='" . $THEME_URL . "style.css'>\r\n";
 
     // Set title
-    $csb_headers .= "<title>".$page_title."</title>\r\n";
+    $csb_headers .= "<title>".$SITE_TITLE.$page_title."</title>\r\n";
 
     // Load libraries
     $csb_headers .=  "<script src='".$THEME_URL."js/jquery-3.4.1.slim.min.js'

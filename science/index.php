@@ -14,6 +14,8 @@ require_once("../csb-loader.php");
 require_once($DB_class);
 require_once($ACC_DIR . "auth.php");
 
+$page_title = "science";
+
 
 /* ----------------------------------------------------------------------
    Is the person logged in?
@@ -24,23 +26,22 @@ $db = new DB($db_servername, $db_username, $db_password, $db_name);
 global $user;
 $user = isLoggedIn($db);
 
-// if $login isn't set, set it to avoid a PHP notice.
-if (!isset($login)) {
-    $login = FALSE;
-}
-
-
-if (filter_var($login, FILTER_VALIDATE_BOOLEAN) || $user === FALSE) { // NOT LOGGED IN
-    echo "Login Required"; // TODO open login alert
+if ($user === FALSE) { // NOT LOGGED IN
+    $left = "menus";
+    $main = "This page requires you to be logged in.";
+    $right = "no right yet";
 
 
 } /* ----------------------------------------------------------------------
    Do they have the correct role?
    ---------------------------------------------------------------------- */
 
-elseif ($_SESSION['roles'] != $CQ_ROLES['SITE_SCIENTIST'] && $_SESSION['roles'] != $CQ_ROLES['SITE_ADMIN'] && $_SESSION['roles'] != $CQ_ROLES['SITE_SUPERADMIN']) {
+elseif (!($_SESSION['roles'] >= $CQ_ROLES['SITE_SCIENTIST'] &&
+        $CQ_ROLES['SITE_SUPERADMIN'] >= $_SESSION['roles'])) {
     // TODO be a bit politer when rejecting nosy users
-    die("ERROR: You don't have permission to be here");
+    $left = "menus";
+    $main = "We're sorry, you don't have permissions to be on this page";
+    $right = "no right yet";
 
 } /* ----------------------------------------------------------------------
    Load the view
@@ -52,13 +53,13 @@ else { // they clearly have permissions
     $dir = $BASE_DIR . "/science/tasks";
     $listings = array_diff(scandir($dir), array('..', '.'));
 
-    $page_title = "science";
-
 
     $left = "<h3>Options</h3>\n";
+    $left .= "<ul>";
     foreach ($listings as $item) {
-        $left .= "<a href='" . $_SERVER['SCRIPT_NAME'] . "?task=$item'>$item</a><br/>";
+        $left .= "<li><a href='" . $_SERVER['SCRIPT_NAME'] . "?task=$item'>".str_replace('-', ' ', $item)."</a></li>";
     }
+    $left .= "</ul>";
 
     // Is a value set?  Check if task exists. If yes, execute. Else, instructions!
     $task = basename(filter_input(INPUT_GET, 'task', FILTER_SANITIZE_FULL_SPECIAL_CHARS, 0));
