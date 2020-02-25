@@ -63,7 +63,7 @@ if (isset($_GET['image_set_name']) && $_GET['image_set_name'] !== "") {
                     var ctx = c.getContext(\"2d\");
                     var img0 = document.getElementById(\"science0\");
                     ctx.drawImage(img0, 0, 0);
-                    
+
                     var cTest = document.getElementById(\"canvasTest\");
                     var ctxTest = cTest.getContext(\"2d\");
                     var imgTest = document.getElementById(\"science0\");

@@ -36,7 +36,7 @@ Load the view
     ---------------------------------------------------------------------- */
 
 $left = "left";
-$middle = "middle";
+$middle = "";
 $right = "right";
 
 require_once($BASE_DIR . "/csb-content/template_functions.php");
