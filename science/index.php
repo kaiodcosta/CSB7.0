@@ -64,7 +64,6 @@ else { // they clearly have permissions
     // Is a value set?  Check if task exists. If yes, execute. Else, instructions!
     $task = basename(filter_input(INPUT_GET, 'task', FILTER_SANITIZE_FULL_SPECIAL_CHARS, 0));
     if ($task !== NULL && file_exists($BASE_DIR . "science/tasks/" . $task . "/" . $task . ".php")) {
-        $main = "<h2>Task: " . $task . "</h2>";
         require_once($BASE_DIR . "science/tasks/" . $task . "/" . $task . ".php");
     } else {
         error_log("Somebody tried to call the science task {$task}");
@@ -76,5 +75,5 @@ else { // they clearly have permissions
 require_once($BASE_DIR . "/csb-content/template_functions.php");
 
 loadHeader();
-load3Col($left, $main, "More Stuff");
+load3Col($left, $main, "More Stuff", $template_name, $template_path);
 loadFooter();
