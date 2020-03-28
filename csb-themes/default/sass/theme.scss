@@ -17,7 +17,7 @@ body {
   background-color: #424FA2;
   background-image: url("images/background.jpg");
   color: #FFFFFF;
-  margin-bottom: 60px;
+  margin-bottom: 55px;
 }
 
 li {
@@ -43,8 +43,8 @@ label {
    Left Side
    -------------------------------------------------------------------------------- */
 
-a {
-  color: #ffffff;
+#app-left ul li a {
+  color: #FFFFFF;
   text-decoration: none;
   font-weight: normal;
 }

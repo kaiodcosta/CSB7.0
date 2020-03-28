@@ -1,13 +1,4 @@
 <?php
-
-/**
- * Created by PhpStorm.
- * User: grigorib
- * Date: 2/22/20
- * Time: 99999.9 PM
- */
-
-
 /* ----------------------------------------------------------------------
    Get the settings and check if the person is logged in
    ---------------------------------------------------------------------- */
