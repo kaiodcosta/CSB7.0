@@ -12,15 +12,17 @@ global $user;
     $mysqli = mysqli_connect('localhost','csb','1password2ruleALL','csb');
 
     $results_per_page = 12;  // Number of entries to show in a page.
-    $query = "SELECT id FROM users WHERE name = "."'".$user['name']."'";
+//    $query = "SELECT id FROM users WHERE name = "."'".$user['name']."'";
+//    $query = "SELECT id FROM users WHERE name = "."'".$user['name']."'";
 
-    $userid_result = $db->runBaseQuery($query);
+//    $userid_result = $db->runBaseQuery($query);
 
-    foreach ($userid_result as $uid) {
-        $userid = $uid['id'];
-    }
+//    foreach ($userid_result as $uid) {
+//        $userid = $uid['id'];
+//    }
 
-    $query = "SELECT distinct image_id FROM marks WHERE user_id =" . $userid;
+//    $query = "SELECT distinct image_id FROM marks WHERE user_id =" . $userid;
+    $query = "SELECT distinct image_id FROM marks WHERE user_id = 97316";
 
     $rs = mysqli_query($mysqli, $query);
     $number_of_results = mysqli_num_rows($rs); // how many rows
@@ -38,7 +40,8 @@ global $user;
     $start_from = ($page-1)*$results_per_page;
 
 //    $query = "SELECT distinct image_id FROM marks WHERE user_id = 2773 LIMIT $start_from, $results_per_page";
-    $query = "SELECT distinct image_id FROM marks WHERE user_id=".$userid. " LIMIT ".$start_from.", ".$results_per_page;
+    $query = "SELECT distinct image_id FROM marks WHERE user_id = 97316 LIMIT $start_from, $results_per_page";
+//    $query = "SELECT distinct image_id FROM marks WHERE user_id=".$userid. " LIMIT ".$start_from.", ".$results_per_page;
     $images = $db->runBaseQuery($query);
 
     // For each image retreived for that user, get their image location and display

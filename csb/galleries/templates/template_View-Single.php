@@ -14,8 +14,10 @@ GLOBAL $db;
     $mysqli = mysqli_connect('localhost','csb','1password2ruleALL','csb');
 
     $query = "SELECT x, y, diameter, image_id FROM marks WHERE type='crater' AND image_id = ".$img_id;
+//    $query = "SELECT x, y, diameter, details, type FROM marks WHERE (type='crater' or type='boulder') AND image_id = ".$img_id;
 
-    $image_data = mysqli_query($mysqli, $query);
+//    $image_data = mysqli_query($mysqli, $query);
+    $image_data = $db->runBaseQuery($query);
 
     $x_values = array();
     $y_values = array();
@@ -30,8 +32,8 @@ GLOBAL $db;
     }
 
     $query = "SELECT details FROM marks WHERE type='boulder' AND image_id = ".$img_id;
-
     $image_data = mysqli_query($mysqli, $query);
+//    $image_data = $db->runBaseQuery($query);
 
     $x1_values = array();
     $y1_values = array();
@@ -89,7 +91,7 @@ GLOBAL $db;
         ctx.moveTo(x1_arr[items_no], y1_arr[items_no]);
         ctx.lineTo(x2_arr[items_no], y2_arr[items_no]);
         ctx.lineWidth = 2;
-        ctx.strokeStyle = '#90FF20';
+        ctx.strokeStyle = 'rgba(169, 30, 44, 0.4)';
         ctx.stroke();
 
         items_no++;
@@ -125,7 +127,8 @@ GLOBAL $db;
         ctx.beginPath();
         ctx.arc(x_arr[items_no], y_arr[items_no], diameter_arr[items_no] / 2, 0, Math.PI * 2, false);
         ctx.lineWidth = 2;
-        ctx.strokeStyle = '#FF20EF';
+        ctx.strokeStyle = 'rgba(243, 199, 73, 0.9)';
+        // ctx.strokeStyle = 'rgba(56, 70, 184, 0.8)';
         ctx.stroke();
 
         items_no++;
