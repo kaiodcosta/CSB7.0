@@ -49,37 +49,14 @@ GLOBAL $db;
     }
 
     // get users' names and display them
-    $query = "SELECT user_id FROM marks WHERE image_id = ".$img_id;
+    $query = "SELECT distinct marks.user_id, users.name FROM marks, users WHERE marks.image_id = ".$img_id ." AND marks.user_id = users.id";
     $user_data = mysqli_query($mysqli, $query);
     $user_ids = array();
 
     foreach ($user_data as $userdata) {
-
-//      echo $userdata['user_id']
-        $user_id = $userdata['user_id'];
+        $user_id = $userdata['name'];
         $user_ids[] = $user_id;
-
-//        $query = "SELECT name FROM `csb`.`users` WHERE id =".$userdata['user_id'];
-//        $credentials = mysqli_query($mysqli, $query);
-//        $user_info = mysqli_query($mysqli, $query);
     }
-
-    foreach ($user_ids as $userid) {
-        ?>
-            <p><?php echo $userid?></p>
-        <?php
-    }
-
-//    foreach ($credentials as $credential) {
-//        ?>
-<!--            <p>--><?php //echo $credential['name']?><!--</p>-->
-<!--        --><?php
-//    }
-
-//    $query = "SELECT * FROM `csb`.`users`";
-//    $users = mysqli_query($mysqli, $query);
-//    foreach ($user as $users) {
-//    }
 ?>
 
 <script>
@@ -159,7 +136,6 @@ GLOBAL $db;
     }
 </script>
 
-
 <body onload="Main()">
     <div >
         <img alt="" id="user_img" src = "<?php echo $image_name?>"  />
@@ -167,4 +143,23 @@ GLOBAL $db;
     </div>
 </body>
 
+<div class="image_markers">
+    <h6>Users who marked this image</h6>
+    <?php
+        foreach ($user_ids as $userid) {
+            ?><p><?php echo $userid?></p>
+            <?php
+        }
+    ?>
+</div>
 
+<style>
+    .image_markers p {
+        margin-top: 5px;
+        margin-bottom: 0px;
+        font-size: .75em;
+    }
+    .image_markers h6 {
+        margin-top: 10px;
+    }
+</style>

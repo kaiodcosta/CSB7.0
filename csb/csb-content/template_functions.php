@@ -21,10 +21,8 @@ function loadHeader($page_title = "", $header_title = "")
     require_once($THEME_DIR . "header.php");
 }
 
-
 function load3Col($menus="", $main="", $notes="", $template="", $path="") {
     global $THEME_URL, $THEME_DIR, $BASE_URL, $TEMPLATES_DIR;
-
     require_once($THEME_DIR . "page-3col-template.php");
 }
 
@@ -120,7 +118,7 @@ function loadUser()
                 </form>
             </div>
         </li>
-        
+
         <?php
     }
 }
@@ -128,7 +126,7 @@ function loadUser()
 
 /**
  * Creates navigation links depending on login state
- * 
+ *
  *
  * @return void
  */
@@ -266,4 +264,3 @@ function loadLoginBox()
     <?php
 
 }
-        

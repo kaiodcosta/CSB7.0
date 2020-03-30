@@ -7,13 +7,23 @@
  */
 
 GLOBAL $db;
+global $user;
 
     $mysqli = mysqli_connect('localhost','csb','1password2ruleALL','csb');
 
     $results_per_page = 12;  // Number of entries to show in a page.
-    $query = "SELECT image_id FROM image_users WHERE user_id = 101111";
+    $query = "SELECT id FROM users WHERE name = "."'".$user['name']."'";
+
+    $userid_result = $db->runBaseQuery($query);
+
+    foreach ($userid_result as $uid) {
+        $userid = $uid['id'];
+    }
+
+    $query = "SELECT distinct image_id FROM marks WHERE user_id =" . $userid;
+
     $rs = mysqli_query($mysqli, $query);
-    $number_of_results = mysqli_num_rows($rs); // how many row
+    $number_of_results = mysqli_num_rows($rs); // how many rows
 
     // get the number of total pages available
     $number_of_pages = ceil($number_of_results / $results_per_page); // round to the nearest int
@@ -27,16 +37,14 @@ GLOBAL $db;
 
     $start_from = ($page-1)*$results_per_page;
 
-    $query = "SELECT image_id FROM image_users WHERE user_id = 101111 LIMIT $start_from, $results_per_page";
-
+//    $query = "SELECT distinct image_id FROM marks WHERE user_id = 2773 LIMIT $start_from, $results_per_page";
+    $query = "SELECT distinct image_id FROM marks WHERE user_id=".$userid. " LIMIT ".$start_from.", ".$results_per_page;
     $images = $db->runBaseQuery($query);
 
     // For each image retreived for that user, get their image location and display
     foreach ($images as $image) {
-        $query = "SELECT name, file_location FROM images WHERE id = ".$image['image_id'];
-
+        $query = "SELECT name, file_location FROM images WHERE id=".$image['image_id'];
         $file = $db->runBaseQuery($query)[0];
-
         ?>
 
         <div class="img-thumbnail user-img-thumbnail">
@@ -48,8 +56,8 @@ GLOBAL $db;
         </div>
 
     <?php
-}
-?>
+    }
+    ?>
 
 <div class="pagination-box">
     <?php
@@ -93,6 +101,7 @@ GLOBAL $db;
         echo $before_number ."<div class='page-active'>" .$current. "</div>". " ".$after_number;
     ?>
 </div>
+
 
 <!-- pagination styles -->
 <style>

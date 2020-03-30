@@ -28,10 +28,11 @@ Load the view
 
 $left = "left";
 $middle = "";
-$right = "right";
+$right = "click on an image to open it";
 
 require_once($BASE_DIR . "/csb-content/template_functions.php");
 
 loadHeader();
-load3Col($left, $middle, $right, "template_Show-User.php");
+load3Col($left, $middle, $right, "template_View-Single.php", $BASE_DIR."galleries/templates/");
 loadFooter();
+
